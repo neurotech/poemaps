@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Toxic Sewer",
+    "layout": "Long, narrow corridors",
+    "boss": "Chaos DoT Spider",
+    "cards": ["The Throne", "The Feast"]
+  }
+]
