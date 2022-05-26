@@ -1,3 +1,8 @@
+# Providers
+provider "aws" {
+  region = "ap-southeast-2"
+}
+
 # Locals
 locals {
   app_bucket_name = "poemaps-bucket"
