@@ -49,24 +49,3 @@ resource "aws_s3_bucket_policy" "poemaps_bucket" {
     ]
   })
 }
-
-module "template_files" {
-  source   = "hashicorp/dir/template" ## Template :: https://registry.terraform.io/modules/hashicorp/dir/template/latest
-  base_dir = "./dist"
-}
-
-resource "aws_s3_object" "poemaps_files" {
-
-  for_each = module.template_files.files
-
-  bucket       = aws_s3_bucket.poemaps_bucket.id
-  key          = each.key
-  acl          = "public-read"
-  content_type = each.value.content_type
-  source       = each.value.source_path
-  content      = each.value.content
-  etag         = each.value.digests.md5
-}
-output "website" {
-  value = aws_s3_bucket.poemaps_bucket.website_endpoint
-}
