@@ -1,46 +1,50 @@
 import { useState } from "react";
 import styled from "styled-components";
-import maps from "../sample-data/maps.json";
+import { Input } from "@neurotech/elements";
+import { maps } from "./maps";
+import { MapTile } from "./MapTile/MapTile";
 
-interface PoeMap {
+export interface PoeMap {
   name: string;
   layout: string;
   boss: string;
   cards: string[];
+  author?: string;
 }
 
-const WIKI_URL = "https://www.poewiki.net/wiki/";
+export const WIKI_URL = "https://www.poewiki.net/wiki/";
 
-const Container = styled.div``;
-
-const MapsList = styled.div`
-  border: 1px solid silver;
+const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  flex: 1;
+  justify-content: space-between;
 `;
 
-const CardContainer = styled.div`
+const Toolbar = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const Footer = styled.footer``;
+const HideMapsWithNoData = styled.div`
+  width: 200px;
+`;
 
-const getCards = (cards: string[]) => {
-  return cards.map((card) => {
-    const url = `${WIKI_URL}${card.replace(" ", "_")}`;
-    return (
-      <a key={card} href={url} target={"_blank"}>
-        {card}
-      </a>
-    );
-  });
-};
+const MapsContainer = styled.div`
+  flex: 1;
+  margin-top: 1rem;
+`;
+
+const Footer = styled.footer`
+  text-align: center;
+`;
 
 export const App = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredMaps, setFilteredMaps] = useState<PoeMap[]>([]);
+  const [hideMaps, setHideMaps] = useState<boolean>(false);
 
   const handleSearch = (input: string) => {
     setSearchInput(input);
@@ -48,8 +52,16 @@ export const App = () => {
     if (input === "" || input === " ") {
       setFilteredMaps([]);
     } else {
+      const sortedMaps = maps.sort((a: PoeMap, b: PoeMap) =>
+        a.name.localeCompare(b.name)
+      );
+
       setFilteredMaps(
-        maps.filter((map) => {
+        sortedMaps.filter((map) => {
+          if (hideMaps && map.layout === "") {
+            return;
+          }
+
           return map.name.toLowerCase().includes(input.toLowerCase());
         })
       );
@@ -63,34 +75,52 @@ export const App = () => {
     }
   };
 
+  const handleHideMaps = (checked: boolean) => {
+    setHideMaps(!hideMaps);
+
+    const sortedMaps = maps.sort((a: PoeMap, b: PoeMap) =>
+      a.name.localeCompare(b.name)
+    );
+
+    setFilteredMaps(
+      sortedMaps.filter((map) => {
+        if (checked && map.layout === "") {
+          return;
+        }
+
+        return map.name.toLowerCase().includes(searchInput.toLowerCase());
+      })
+    );
+  };
+
   return (
     <Container>
-      <input
-        onChange={(event) => handleSearch(event.target.value)}
-        onKeyUp={(event) => handleClear(event.key)}
-        placeholder={"Search for a map"}
-        type={"text"}
-        value={searchInput}
-      />
-      {filteredMaps.map((map: PoeMap) => (
-        <MapsList key={map.name}>
-          <div>
-            <a
-              href={`${WIKI_URL}${map.name.replace(" ", "_")}_Map`}
-              target={"_blank"}
-            >
-              {map.name}
-            </a>
-          </div>
-          <div>Layout: {map.layout}</div>
-          <div>Boss: {map.boss}</div>
-          <CardContainer>Cards:{getCards(map.cards)}</CardContainer>
-        </MapsList>
-      ))}
+      <Toolbar>
+        <Input
+          fullWidth
+          onChange={(event) => handleSearch(event.target.value)}
+          onKeyUp={(event) => handleClear(event.key)}
+          placeholder={"Search for a map"}
+          value={searchInput}
+        />
+        <HideMapsWithNoData>
+          <input
+            checked={hideMaps}
+            onChange={(event) => handleHideMaps(event.target.checked)}
+            type={"checkbox"}
+          />
+          {"Hide maps with no data"}
+        </HideMapsWithNoData>
+      </Toolbar>
+      <MapsContainer>
+        {filteredMaps.map((map: PoeMap) => (
+          <MapTile key={map.name} map={map} />
+        ))}
+      </MapsContainer>
       <Footer>
         {"Hey, if you want to "}
         <a href={"https://buymeacoffee.com/neurotech"}>{"buy me a coffee"}</a>
-        {", I'd appreciate it. :)"}
+        {"... I'd appreciate it. 🙂"}
       </Footer>
     </Container>
   );
