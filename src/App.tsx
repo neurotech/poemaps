@@ -106,6 +106,7 @@ export const App = () => {
       <Toolbar>
         <Logo src={logo} />
         <Input
+          autoFocus
           fullWidth
           onChange={(event) => handleSearch(event.target.value)}
           onKeyUp={(event) => handleClear(event.key)}
@@ -133,7 +134,7 @@ export const App = () => {
         <a href={"https://buymeacoffee.com/neurotech"} target={"_blank"}>
           {"buy me a coffee"}
         </a>
-        {"... I'd appreciate it. 🙂"}
+        {" I'd appreciate it. 🙂"}
       </Footer>
     </Container>
   );
