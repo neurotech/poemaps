@@ -29,10 +29,13 @@ const BossAndCards = styled.div`
 
 const Boss = styled.div`
   display: flex;
+  font-style: italic;
+  color: ${palette.grey};
 `;
 
 const BossIcon = styled.div`
   cursor: help;
+  font-style: normal;
   height: 24px;
   width: 24px;
 `;
