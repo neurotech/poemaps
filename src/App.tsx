@@ -1,15 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Input } from "@neurotech/elements";
+import { Button, Input, palette } from "@neurotech/elements";
 import { maps } from "./maps";
 import { MapTile } from "./MapTile/MapTile";
+import logo from "./images/logo.png";
 
 export interface PoeMap {
   name: string;
   layout: string;
   boss: string;
   cards: string[];
-  author?: string;
 }
 
 export const WIKI_URL = "https://www.poewiki.net/wiki/";
@@ -28,8 +28,15 @@ const Toolbar = styled.div`
   align-items: center;
 `;
 
+const Logo = styled.img`
+  margin-right: 1.5rem;
+`;
+
 const HideMapsWithNoData = styled.div`
-  width: 200px;
+  display: flex;
+  margin-left: 1.5rem;
+  width: 250px;
+  align-self: stretch;
 `;
 
 const MapsContainer = styled.div`
@@ -38,13 +45,14 @@ const MapsContainer = styled.div`
 `;
 
 const Footer = styled.footer`
+  color: ${palette.grey};
   text-align: center;
 `;
 
 export const App = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredMaps, setFilteredMaps] = useState<PoeMap[]>([]);
-  const [hideMaps, setHideMaps] = useState<boolean>(false);
+  const [hideMaps, setHideMaps] = useState<boolean>(true);
 
   const handleSearch = (input: string) => {
     setSearchInput(input);
@@ -96,7 +104,9 @@ export const App = () => {
   return (
     <Container>
       <Toolbar>
+        <Logo src={logo} />
         <Input
+          autoFocus
           fullWidth
           onChange={(event) => handleSearch(event.target.value)}
           onKeyUp={(event) => handleClear(event.key)}
@@ -104,12 +114,14 @@ export const App = () => {
           value={searchInput}
         />
         <HideMapsWithNoData>
-          <input
-            checked={hideMaps}
-            onChange={(event) => handleHideMaps(event.target.checked)}
-            type={"checkbox"}
+          <Button
+            fullWidth
+            label={
+              hideMaps ? "Show maps with no data" : "Hide maps with no data"
+            }
+            onClick={() => handleHideMaps(!hideMaps)}
+            variant={"green"}
           />
-          {"Hide maps with no data"}
         </HideMapsWithNoData>
       </Toolbar>
       <MapsContainer>
@@ -119,8 +131,10 @@ export const App = () => {
       </MapsContainer>
       <Footer>
         {"Hey, if you want to "}
-        <a href={"https://buymeacoffee.com/neurotech"}>{"buy me a coffee"}</a>
-        {"... I'd appreciate it. 🙂"}
+        <a href={"https://buymeacoffee.com/neurotech"} target={"_blank"}>
+          {"buy me a coffee"}
+        </a>
+        {" I'd appreciate it. 🙂"}
       </Footer>
     </Container>
   );
