@@ -53,7 +53,7 @@ const Footer = styled.footer`
 export const App = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredMaps, setFilteredMaps] = useState<PoeMap[]>([]);
-  const [hideMaps, setHideMaps] = useState<boolean>(false);
+  const [hideMaps, setHideMaps] = useState<boolean>(true);
 
   const handleSearch = (input: string) => {
     setSearchInput(input);
