@@ -10,7 +10,6 @@ export interface PoeMap {
   layout: string;
   boss: string;
   cards: string[];
-  author?: string;
 }
 
 export const WIKI_URL = "https://www.poewiki.net/wiki/";
