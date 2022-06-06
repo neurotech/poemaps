@@ -17,20 +17,57 @@ export const maps: PoeMap[] = [
     boss: "2 random Warband bosses",
     cards: ["The Void"],
   },
-  { name: "Ancient City", layout: "", boss: "", cards: [] },
-  { name: "Arachnid Nest", layout: "", boss: "", cards: [] },
-  { name: "Arcade", layout: "", boss: "", cards: [] },
+  { name: "Ancient City", layout: "", boss: "", cards: ["The Damned"] },
+  {
+    name: "Arachnid Nest",
+    layout: "",
+    boss: "Spider (Weaver from Act 2)",
+    cards: [],
+  },
+  {
+    name: "Arcade",
+    layout: "Basically the Marketplace area from act 3.",
+    boss: "Twin Ribbons (Herald of Ashes, Herald of Thunder)",
+    cards: ["The Poet", "The Saint's Treasure"],
+  },
   {
     name: "Arena",
     layout: "Three arenas separated by underground passageways.",
     boss: "Trio from The Grand Arena (act 4)",
     cards: [],
   },
-  { name: "Arid Lake", layout: "", boss: "", cards: [] },
-  { name: "Armoury", layout: "", boss: "", cards: [] },
-  { name: "Arsenal", layout: "", boss: "", cards: [] },
-  { name: "Ashen Wood", layout: "", boss: "", cards: [] },
-  { name: "Atoll", layout: "", boss: "", cards: [] },
+  {
+    name: "Arid Lake",
+    layout: "Wide open circular-ish map with a central area of water.",
+    boss: "Big Rhoa preceeded by 3 Rhoa Nests",
+    cards: ["The Tinkerer's Table"],
+  },
+  {
+    name: "Armoury",
+    layout:
+      "Basically like an indoor room from the Lab, but without traps. Lots of fiddly little rooms.",
+    boss: "Discount Gravicius, casts Firestorm",
+    cards: ["The Void"],
+  },
+  {
+    name: "Arsenal",
+    layout:
+      "The Grain Gate area from act 8. Many warehouse-style collections of rooms.",
+    boss: "Waves of animated weapons, ending in a big animated weapon.",
+    cards: ["Abandoned Wealth", "The Patient"],
+  },
+  {
+    name: "Ashen Wood",
+    layout: "Large open area with several small walls.",
+    boss: "Bow bandit",
+    cards: ["The Scout"],
+  },
+  {
+    name: "Atoll",
+    layout: "Pseudo-figure-of-eight version of The Ledge",
+    boss: "Big ice totem",
+    cards: ["The Catch"],
+  },
   {
     name: "Basilica",
     layout: "Long and relatively wide hallways, some LOS breaking geometry.",
@@ -39,9 +76,9 @@ export const maps: PoeMap[] = [
   },
   {
     name: "Bazaar",
-    layout: "",
-    boss: "",
-    cards: [],
+    layout: "Basically the Marketplace area from act 3.",
+    boss: "Ancient Sculptor ??? maybe throws traps?",
+    cards: ["The Saint's Treasure"],
   },
   {
     name: "Beach",
@@ -49,7 +86,12 @@ export const maps: PoeMap[] = [
     boss: "Hailrake (frosty boy) from Act 1",
     cards: ["The Catch"],
   },
-  { name: "Belfry", layout: "", boss: "", cards: [] },
+  {
+    name: "Belfry",
+    layout: "One big circuitous square-ish path.",
+    boss: "Act 5 version of Kitava",
+    cards: ["The Wrath"],
+  },
   {
     name: "Bone Crypt",
     layout: "Lots of small interconnected cramped rooms.",
