@@ -5,11 +5,14 @@ import { maps } from "./maps";
 import { MapTile } from "./MapTile/MapTile";
 import logo from "./images/logo.png";
 
+export type Mechanic = "blight" | "delirium";
+
 export interface PoeMap {
   name: string;
   layout: string;
   boss: string;
   cards: string[];
+  mechanics?: Mechanic[];
 }
 
 export const WIKI_URL = "https://www.poewiki.net/wiki/";
@@ -70,7 +73,16 @@ export const App = () => {
             return;
           }
 
-          return map.name.toLowerCase().includes(input.toLowerCase());
+          const nameMatch = map.name
+            .toLowerCase()
+            .includes(input.toLowerCase());
+
+          const cardMatch =
+            map.cards.filter((card) =>
+              card.toLowerCase().includes(input.toLowerCase())
+            ).length > 0;
+
+          return nameMatch || cardMatch;
         })
       );
     }

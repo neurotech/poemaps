@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { PoeMap, WIKI_URL } from "../App";
 import { HorizontalRule } from "./HorizontalRule";
 import { MapTileContent, NoContent } from "./MapTileContent";
+import { Mechanics } from "./Mechanics";
 
 export interface MapTileProps {
   map: PoeMap;
@@ -18,8 +19,10 @@ const MapTileContainer = styled.div<{ isValid: boolean }>`
 `;
 
 const MapTileHeader = styled.div`
+  display: flex;
   font-weight: 500;
   font-size: 1.5rem;
+  justify-content: space-between;
   margin-bottom: 1rem;
 `;
 
@@ -35,6 +38,9 @@ export const MapTile = ({ map }: MapTileProps) => {
         >
           {map.name}
         </a>
+        {map.mechanics && map.mechanics.length > 0 && (
+          <Mechanics mechanics={map.mechanics} />
+        )}
       </MapTileHeader>
       {isValid ? <MapTileContent map={map} /> : <NoContent />}
     </MapTileContainer>
